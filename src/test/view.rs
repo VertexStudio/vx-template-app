@@ -83,24 +83,31 @@ impl Component for TestView {
 
     fn view(&self) -> Html {
         let graphql_task = if self.graphql_task.is_some() {
-            html! { <button onclick=self.link.callback(|_| Self::Message::SubscriptionDisable)>{"Subscription Disable"}</button> }
+            html! { <button class="button is-danger" onclick=self.link.callback(|_| Self::Message::SubscriptionDisable)>{"Subscription Disable"}</button> }
         } else {
-            html! { <button onclick=self.link.callback(|_| Self::Message::SubscriptionEnable)>{"Subscription Enable"}</button> }
+            html! { <button class="button is-primary" onclick=self.link.callback(|_| Self::Message::SubscriptionEnable)>{"Subscription Enable"}</button> }
         };
 
         let subscribed = if self.sub_task.is_some() {
-            html! { <button onclick=self.link.callback(|_| Self::Message::Unsubscribe)>{"Unsubscribe"}</button> }
+            html! { <button class="button is-warning" onclick=self.link.callback(|_| Self::Message::Unsubscribe)>{"Unsubscribe"}</button> }
         } else {
-            html! { <button onclick=self.link.callback(|_| Self::Message::Subscribe)>{"Subscribe"}</button> }
+            html! { <button class="button is-success" onclick=self.link.callback(|_| Self::Message::Subscribe)>{"Subscribe"}</button> }
         };
         let position_add = self.link.callback(|_| Self::Message::TimeAdd);
         html! {
             <>
-                <button onclick=position_add>{"Send Location"}</button>
-                <br />
-                { graphql_task }
-                <br />
-                { subscribed }
+                <span class="is-block is-title has-text-weight-bold is-size-2 has-text-centered mb-4">{"Test"}</span>
+                <div class="columns is-centered">
+                    <div class="column is-flex is-justify-content-center">
+                        <button class="button is-link" onclick=position_add>{"Send Location"}</button>
+                    </div>
+                    <div class="column is-flex is-justify-content-center">
+                        { graphql_task }
+                    </div>
+                    <div class="column is-flex is-justify-content-center">
+                        { subscribed }
+                    </div>
+                </div>
             </>
         }
     }
